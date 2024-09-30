@@ -1,27 +1,37 @@
 module.exports = {
     components:{
         schemas: {
-            Tasks: {
+            TasksBody: {
+                type: "object",
+                properties: {
+                    title: {
+                        type: "string",
+                        description: "Title of task",
+                        example: "Make index.js"
+                    }
+                }
+            },
+            Task: {
                 type: "object",
                 properties: {
                     _id:{
-                        type: "objectId",
-                        description: "Task identification number",
+                        type_: "objectId",
+                        description: "An id of a task",
                         example: "6201064b0028de7866e2b2c4"
                     },
                     title: {
-                        type: "String",
+                        type: "string",
                         description: "Title of task",
                         example: "Make index.js"
                     },
                     completed: {
-                        type: "Boleean",
-                        description: "Change to true when the task is finished",
-                        example: "true"
+                        type: "boolean",
+                        description: "Finished task",
+                        example: "false"
                     }
                 }
             },
-            _id: {
+            TaskID: {
                 type: "String",
                 properties: {
                     _id: {

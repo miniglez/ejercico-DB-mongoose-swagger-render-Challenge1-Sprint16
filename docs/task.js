@@ -4,17 +4,14 @@ module.exports = {
     paths: {
         "/create": {
             post: {
-                tags: {
-                    Task: " Create a task"
-                },
+                tags: ["Create a task"],
                 desctiption: "Create a task",
                 operationId: "createTask",
-                parameters: [],
                 requestBody: {
                     content: {
                         "application/json": {
                             schema: {
-                                $ref: "#/components/schemas/Tasks"
+                                $ref: "#/components/schemas/TasksBody"
                             }
                         }
                     }
@@ -31,24 +28,20 @@ module.exports = {
             },
         "/": {
             get: {
-                tags: {
-                    Task: " Get all tasks"
-                },
+                tags: ["Get all tasks"],
                 description: "Get all task at the server",
                 operationId: "getTasks",
-                parameters: [],
-                requestBody: {
-                    content: {
-                        "aplication/json": {
-                            schema:{
-                                $ref: "#/components/schemas/Tasks"
-                            }
-                        }
-                    }
-                },
+                parameters: null,
                 responses: {
                     200: {
-                        description: "All tasks getting succesfully"
+                        description: "All tasks getting succesfully",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    $ref: "#/components/schemas/Task"
+                                }
+                            }
+                        }
                     },
                     500:{
                         description: "Server error"
@@ -57,28 +50,49 @@ module.exports = {
             },
         },
         "/id/{_id}": {
-            get: {
-                tags: {
-                    Task: " Get a single task"
+            put: {
+                summary: "",
+                tags: ["Change a task"],
+                description: "Change task",
+                operationId: "changeTask",
+                parameters: [
+                  {
+                    name: "_id",
+                    in: "path",           
+                    description: "Id task change"
+                  }
+                ],
+                requestBody: {
+                    content: {
+                        "application/json": {
+                            schema: {
+                                $ref: "#/components/schemas/TasksBody"
+                            }
+                        }
+                    }
                 },
+                responses: {
+                  200: {
+                    description: "Task change successfully",
+                  },
+                  500: {
+                    description: "Server error",
+                  },
+                },
+              },
+            get: {
+                tags: ["Get a single task"],
                 description: "Get a task by ID",
                 operationId: "getTask",
                 parameters: [
                     {
                         name: "_id",
                         in: "path",
-                        schema: {$ref: "#/components/schemas/_id"}
+                        schema: {$ref: "#/components/schemas/TaskID"},
+                        description: "ID task get a task by id"
                     }
                 ],
-                requestBody: {
-                    content: {
-                        "aplication/json": {
-                            schema:{
-                                $ref: "#/components/schemas/Tasks"
-                            }
-                        }
-                    }
-                },
+                requestBody: null,
                 responses: {
                     200: {
                         description: "Task getting succesfully"
@@ -87,31 +101,39 @@ module.exports = {
                         description: "Server error"
                     }
                 }
+            },
+            delete: {
+                tags: ["Delete a single task"],
+                description: "Delete a task by ID",
+                operationId: "deleteTask",
+                parameters: [
+                    {
+                        name: "_id",
+                        in: "path",
+                        schema: {$ref: "#/components/schemas/TaskID"},
+                        description: "ID task delete"
+                    }
+                ],
+                requestBody: null,
+                responses: {
+                    200: {description: "Task deleted successfully"},
+                    500:{description: "Server error"}
+                }
             }
         },
         "/markAsCompleted/{_id}": {
             put: {
-                tags: {
-                    Task: " Task completed"
-                },
+                tags: ["Task completed"],
                 description: "Mark a task that is completed",
                 operationId: "putTask",
                 parameters: [
                     {
                         name: "_id",
                         in: "path",
-                        schema: {$ref: "#/components/schemas/_id"}
+                        schema: {$ref: "#/components/schemas/TaskID"},
+                        description: "ID task delete"
                     }
                 ],
-                requestBody: {
-                    content: {
-                        "aplication/json": {
-                            schema:{
-                                $ref: "#/components/schemas/Tasks"
-                            }
-                        }
-                    }
-                },
                 responses: {
                     200: {
                         description: "Mark task completed succesfully"
@@ -119,35 +141,6 @@ module.exports = {
                     500:{
                         description: "Server error"
                     }
-                }
-            }
-        },
-        "/id/{:_id}": {
-            delete: {
-                tags: {
-                    Task: " Delete a single task"
-                },
-                description: "Delete a task by ID",
-                operationId: "deleteTask",
-                parameters: [
-                    {
-                        name: "_id",
-                        in: "path",
-                        schema: {$ref: "#/components/schemas/_id"}
-                    }
-                ],
-                requestBody: {
-                    content: {
-                        "aplication/json": {
-                            schema:{
-                                $ref: "#/components/schemas/Tasks"
-                            }
-                        }
-                    }
-                },
-                responses: {
-                    200: {description: "Task deleted successfully"},
-                    500:{description: "Server error"}
                 }
             }
         },

@@ -5,7 +5,7 @@ module.exports = {
         title: "Tasks API",
         description: "Create tasks",
         servers: {
-            utl: "http:localhost:8080"
+            url: "http:localhost:8080"
         }
     }
 }

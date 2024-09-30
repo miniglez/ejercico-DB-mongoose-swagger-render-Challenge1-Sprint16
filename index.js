@@ -15,4 +15,4 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
 
 dbConnection();
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server started on port http://localhost:${PORT}`));
